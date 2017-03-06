@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="desc"
+        android:textColor="#ff0000" />
+
+    <LinearLayout
+        android:id="@+id/toplayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_item_0"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:background="@drawable/bg_data_detail"/>
+
+        <com.alex.e.mycalculator.ui.widge.MyHScrollView
+            android:id="@+id/horizontalScrollView_excel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/ll_top_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </com.alex.e.mycalculator.ui.widge.MyHScrollView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/line"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:listSelector="#F6F6F6" >
+        </ListView>
+    </RelativeLayout>
+
+</LinearLayout>
