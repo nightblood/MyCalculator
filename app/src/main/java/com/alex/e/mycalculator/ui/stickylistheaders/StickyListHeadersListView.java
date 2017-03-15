@@ -25,7 +25,8 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 
-import se.emilsjolander.stickylistheaders.WrapperViewList.LifeCycleListener;
+import com.alex.e.mycalculator.R;
+
 
 /**
  * Even though this is a FrameLayout subclass we still consider it a ListView.
@@ -69,9 +70,7 @@ public class StickyListHeadersListView extends FrameLayout {
          *                      the item whose header is now sticky.
          * @param headerId      The id of the new sticky header.
          */
-        void onStickyHeaderChanged(StickyListHeadersListView l, View header,
-                                   int itemPosition, long headerId);
-
+        void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId);
     }
 
     /* --- Children --- */
@@ -192,7 +191,7 @@ public class StickyListHeadersListView extends FrameLayout {
                             mList.isFastScrollAlwaysVisible()));
                 }
 
-                mList.setScrollBarStyle(a.getInt(R.styleable.StickyListHeadersListView_android_scrollbarStyle, 0));
+//                mList.setScrollBarStyle(a.getInt(R.styleable.StickyListHeadersListView_android_scrollbarStyle, SCROLLBARS_OUTSIDE_INSET));
 
                 if (a.hasValue(R.styleable.StickyListHeadersListView_android_listSelector)) {
                     mList.setSelector(a.getDrawable(R.styleable.StickyListHeadersListView_android_listSelector));
@@ -522,7 +521,7 @@ public class StickyListHeadersListView extends FrameLayout {
 
     }
 
-    private class WrapperViewListLifeCycleListener implements LifeCycleListener {
+    private class WrapperViewListLifeCycleListener implements WrapperViewList.LifeCycleListener {
 
         @Override
         public void onDispatchDrawOccurred(Canvas canvas) {

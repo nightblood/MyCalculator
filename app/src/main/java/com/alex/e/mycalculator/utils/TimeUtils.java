@@ -195,7 +195,6 @@ public class TimeUtils {
     /**
      * 将时间戳转为时间字符串
      * <p>格式为pattern</p>
-     *
      * @param millis  毫秒时间戳
      * @param pattern 时间格式
      * @return 时间字符串
@@ -207,7 +206,6 @@ public class TimeUtils {
     /**
      * 将时间字符串转为时间戳
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 毫秒时间戳
      */
@@ -246,7 +244,6 @@ public class TimeUtils {
     /**
      * 将时间字符串转为Date类型
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return Date类型
@@ -380,7 +377,6 @@ public class TimeUtils {
     /**
      * 获取合适型两个时间差
      * <p>time0和time1格式都为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time0     时间字符串0
      * @param time1     时间字符串1
      * @param precision 精度
@@ -399,7 +395,6 @@ public class TimeUtils {
     /**
      * 获取合适型两个时间差
      * <p>time0和time1格式都为pattern</p>
-     *
      * @param time0     时间字符串0
      * @param time1     时间字符串1
      * @param precision 精度
@@ -418,7 +413,6 @@ public class TimeUtils {
 
     /**
      * 获取合适型两个时间差
-     *
      * @param date0     Date类型时间0
      * @param date1     Date类型时间1
      * @param precision 精度
@@ -436,7 +430,6 @@ public class TimeUtils {
 
     /**
      * 获取合适型两个时间差
-     *
      * @param millis0   毫秒时间戳1
      * @param millis1   毫秒时间戳2
      * @param precision 精度
@@ -454,7 +447,6 @@ public class TimeUtils {
 
     /**
      * 获取当前毫秒时间戳
-     *
      * @return 毫秒时间戳
      */
     public static long getNowTimeMills() {
@@ -464,7 +456,6 @@ public class TimeUtils {
     /**
      * 获取当前时间字符串
      * <p>格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @return 时间字符串
      */
     public static String getNowTimeString() {
@@ -609,7 +600,6 @@ public class TimeUtils {
 
     /**
      * 获取合适型与当前时间的差
-     *
      * @param date      Date类型时间
      * @param precision 精度
      *                  <ul>
@@ -628,7 +618,6 @@ public class TimeUtils {
 
     /**
      * 获取合适型与当前时间的差
-     *
      * @param millis    毫秒时间戳
      * @param precision 精度
      *                  <ul>
@@ -648,7 +637,6 @@ public class TimeUtils {
     /**
      * 获取友好型与当前时间的差
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 友好型与当前时间的差
      * <ul>
@@ -668,7 +656,6 @@ public class TimeUtils {
     /**
      * 获取友好型与当前时间的差
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return 友好型与当前时间的差
@@ -707,7 +694,6 @@ public class TimeUtils {
 
     /**
      * 获取友好型与当前时间的差
-     *
      * @param millis 毫秒时间戳
      * @return 友好型与当前时间的差
      * <ul>
@@ -747,7 +733,6 @@ public class TimeUtils {
     /**
      * 判断是否同一天
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -758,7 +743,6 @@ public class TimeUtils {
     /**
      * 判断是否同一天
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return {@code true}: 是<br>{@code false}: 否
@@ -769,7 +753,6 @@ public class TimeUtils {
 
     /**
      * 判断是否同一天
-     *
      * @param date Date类型时间
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -779,7 +762,6 @@ public class TimeUtils {
 
     /**
      * 判断是否同一天
-     *
      * @param millis 毫秒时间戳
      * @return {@code true}: 是<br>{@code false}: 否
      */
@@ -791,7 +773,6 @@ public class TimeUtils {
     /**
      * 判断是否闰年
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return {@code true}: 闰年<br>{@code false}: 平年
      */
@@ -802,7 +783,6 @@ public class TimeUtils {
     /**
      * 判断是否闰年
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return {@code true}: 闰年<br>{@code false}: 平年
@@ -813,7 +793,6 @@ public class TimeUtils {
 
     /**
      * 判断是否闰年
-     *
      * @param date Date类型时间
      * @return {@code true}: 闰年<br>{@code false}: 平年
      */
@@ -826,7 +805,6 @@ public class TimeUtils {
 
     /**
      * 判断是否闰年
-     *
      * @param millis 毫秒时间戳
      * @return {@code true}: 闰年<br>{@code false}: 平年
      */
@@ -836,7 +814,6 @@ public class TimeUtils {
 
     /**
      * 判断是否闰年
-     *
      * @param year 年份
      * @return {@code true}: 闰年<br>{@code false}: 平年
      */
@@ -847,7 +824,6 @@ public class TimeUtils {
     /**
      * 获取星期
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 星期
      */
@@ -858,7 +834,6 @@ public class TimeUtils {
     /**
      * 获取星期
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return 星期
@@ -869,7 +844,6 @@ public class TimeUtils {
 
     /**
      * 获取星期
-     *
      * @param date Date类型时间
      * @return 星期
      */
@@ -879,7 +853,6 @@ public class TimeUtils {
 
     /**
      * 获取星期
-     *
      * @param millis 毫秒时间戳
      * @return 星期
      */
@@ -891,7 +864,6 @@ public class TimeUtils {
      * 获取星期
      * <p>注意：周日的Index才是1，周六为7</p>
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 1...5
      */
@@ -903,7 +875,6 @@ public class TimeUtils {
      * 获取星期
      * <p>注意：周日的Index才是1，周六为7</p>
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return 1...7
@@ -915,7 +886,6 @@ public class TimeUtils {
     /**
      * 获取星期
      * <p>注意：周日的Index才是1，周六为7</p>
-     *
      * @param date Date类型时间
      * @return 1...7
      */
@@ -928,7 +898,6 @@ public class TimeUtils {
     /**
      * 获取星期
      * <p>注意：周日的Index才是1，周六为7</p>
-     *
      * @param millis 毫秒时间戳
      * @return 1...7
      */
@@ -940,7 +909,6 @@ public class TimeUtils {
      * 获取月份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 1...5
      */
@@ -952,7 +920,6 @@ public class TimeUtils {
      * 获取月份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
      * <p>time格式为pattern</p>
-     *
      * @param time    时间字符串
      * @param pattern 时间格式
      * @return 1...5
@@ -964,7 +931,6 @@ public class TimeUtils {
     /**
      * 获取月份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
-     *
      * @param date Date类型时间
      * @return 1...5
      */
@@ -977,7 +943,6 @@ public class TimeUtils {
     /**
      * 获取月份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
-     *
      * @param millis 毫秒时间戳
      * @return 1...5
      */
@@ -989,7 +954,6 @@ public class TimeUtils {
      * 获取年份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
      * <p>time格式为yyyy-MM-dd HH:mm:ss</p>
-     *
      * @param time 时间字符串
      * @return 1...54
      */

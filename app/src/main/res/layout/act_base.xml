@@ -3,4 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.alex.e.mycalculator.ui.stickylistheaders.StickyListHeadersListView
+        android:id="@+id/gv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"/>
 </LinearLayout>

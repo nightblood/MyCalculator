@@ -26,6 +26,13 @@ public class Calculator {
     public void onNumClick(String num) {
         if (TextUtils.isEmpty(mScreenTemp)) {
             mScreenTemp = num;
+            if (TextUtils.isEmpty(mScreenChar)) {
+                mDataNum.clear();
+                mDataChar.clear();
+                mScreenResult = "";
+                mOnChangedListener.onResultChanged(mScreenResult);
+                mOnChangedListener.onListDataChanged("", "");
+            }
         } else {
             if (isOutLimitLength(mScreenTemp)) {
                 return;
@@ -35,7 +42,7 @@ public class Calculator {
         mOnChangedListener.onTempChanged(mScreenTemp);
     }
     public void onCharClick(String ch) {
-        if (TextUtils.isEmpty(mScreenTemp) && TextUtils.isEmpty(mScreenResult)) {
+        if (isZero(mScreenTemp) && TextUtils.isEmpty(mScreenResult)) {
             if (".".equals(ch)) {
                 mScreenTemp = "0.";
                 mOnChangedListener.onTempChanged(mScreenTemp);
@@ -43,60 +50,56 @@ public class Calculator {
             return;
         }
         switch (ch) {
-            case "+" :
+            case "+":
             case "-":
             case "*":
             case "/":
-                if (!isZero(mScreenTemp)) {
-                    if (mScreenTemp.charAt(mScreenTemp.length() - 1) == '.')
-                        mScreenTemp = mScreenTemp.replace(".", "");
+                if (isZero(mScreenTemp) && mDataNum.size() == 0) {
+                    break;
+                }
+                if (!isZero(mScreenTemp) && mDataNum.size() == 0) {
                     mScreenChar = ch;
-                    mDataNum.add(mScreenTemp);
-//                    mDataChar.add(mScreenChar);
+                    mDataNum.add(trimDot(mScreenTemp));
                     mScreenTemp = "";
                     mOnChangedListener.onTempChanged(mScreenTemp);
-
-                } else {
+                    mOnChangedListener.onCharChanged(mScreenChar);
+                    mOnChangedListener.onListDataChanged("", mDataNum.get(mDataNum.size() - 1));
+                } else if (!isZero(mScreenTemp) && mDataNum.size() != 0) {
                     mDataChar.add(mScreenChar);
                     mScreenChar = ch;
+                    mDataNum.add(mScreenTemp);
+                    mScreenResult = getResultFromList();
+                    if (mScreenResult == null) {
+                        mScreenResult = "除数不能为0";
+                    }
                     mScreenTemp = "";
                     mOnChangedListener.onTempChanged(mScreenTemp);
-                    String tempRes = mDataNum.get(0);
-                    for (int i = 0; i < mDataNum.size() - 1; ++i) {
-                        if (i == 0) {
-                            tempRes = calculate(mDataNum.get(i), mDataNum.get(i + 1), mDataChar.get(i));
-                        } else {
-                            tempRes = calculate(tempRes, mDataNum.get(i + 1), mDataChar.get(i));
-                        }
-                    }
-                    mScreenResult = tempRes;
+                    mOnChangedListener.onResultChanged(mScreenResult);
+                    mOnChangedListener.onCharChanged(mScreenChar);
+                    mOnChangedListener.onListDataChanged(mDataChar.get(mDataChar.size() - 1), mDataNum.get(mDataNum.size() - 1));
+                } else if (isZero(mScreenTemp) && mDataNum.size() != 0) {
+                    mScreenChar = ch;
+                    mOnChangedListener.onCharChanged(mScreenChar);
                 }
-
-                mOnChangedListener.onResultChanged(mScreenResult);
                 break;
             case "=":
                 if (TextUtils.isEmpty(mScreenChar))
                     break;
-                if (mScreenTemp.charAt(mScreenTemp.length() - 1) == '.')
-                    mScreenTemp = mScreenTemp.replace(".", "");
-                mDataChar.add(mScreenChar);
-                mDataNum.add(mScreenTemp);
-
-                String tempRes = mDataNum.get(0);
-                for (int i = 0; i < mDataNum.size() - 1; ++i) {
-                    if (i == 0) {
-                        tempRes = calculate(mDataNum.get(i), mDataNum.get(i + 1), mDataChar.get(i));
-                    } else {
-                        tempRes = calculate(tempRes, mDataNum.get(i + 1), mDataChar.get(i));
-                    }
+                if (!TextUtils.isEmpty(mScreenTemp)) {
+                    mScreenTemp = trimDot(mScreenTemp);
+                    mDataChar.add(mScreenChar);
+                    mDataNum.add(mScreenTemp);
                 }
-                mScreenResult = tempRes;
-
-//                mScreenResult = calculate(mScreenResult, mScreenChar, mScreenTemp);
-
+                mScreenResult = getResultFromList();
+                if (mScreenResult == null) {
+                    mScreenResult = "除数不能为0";
+                }
+                mScreenChar = "";
                 mScreenTemp = "";
+                mOnChangedListener.onCharChanged(mScreenChar);
                 mOnChangedListener.onTempChanged(mScreenTemp);
                 mOnChangedListener.onResultChanged(mScreenResult);
+                mOnChangedListener.onListDataChanged(mDataChar.get(mDataChar.size() - 1), mDataNum.get(mDataNum.size() - 1));
                 break;
             case ".":
                 if (isZero(mScreenTemp) || mScreenTemp.contains("."))
@@ -107,7 +110,23 @@ public class Calculator {
         }
     }
 
-    private String calculate(String a, String b, String ch) {
+    private String getResultFromList() {
+        String tempRes = mDataNum.get(0);
+        for (int i = 0; i < mDataNum.size() - 1; ++i) {
+            tempRes = calculate(tempRes, mDataNum.get(i + 1), mDataChar.get(i));
+            if (tempRes == null)
+                return null;
+        }
+        return tempRes;
+    }
+
+    private String trimDot(String num) {
+        if (num.charAt(num.length() - 1) == '.')
+            return num.replace(".", "");
+        return num;
+    }
+
+    public static String calculate(String a, String b, String ch) {
         BigDecimal res;
         BigDecimal arg1 = new BigDecimal(a);
         BigDecimal arg2 = new BigDecimal(b);
@@ -122,7 +141,10 @@ public class Calculator {
                 res = arg1.multiply(arg2);
                 break;
             case "/":
-                res = arg1.divide(arg2);
+                if (isZero(b)) {
+                    return null;
+                }
+                res = arg1.divide(arg2, 3, BigDecimal.ROUND_HALF_UP);
                 break;
             default:
                 res = new BigDecimal("0");
@@ -134,16 +156,28 @@ public class Calculator {
     public void onClearClick() {
         mScreenResult = "";
         mScreenTemp = "";
+        mScreenChar = "";
         mDataChar.clear();
         mDataNum.clear();
+        mOnChangedListener.onResultChanged("");
+        mOnChangedListener.onTempChanged("");
+        mOnChangedListener.onCharChanged("");
     }
     public void onDelClick() {
+        if (TextUtils.isEmpty(mScreenTemp))
+            return;
+        if (mScreenTemp.length() == 1) {
+            mScreenTemp = "";
+        } else {
+            mScreenTemp = mScreenTemp.substring(0, mScreenTemp.length() - 1);
+        }
 
+        mOnChangedListener.onTempChanged(mScreenTemp);
     }
     public boolean isOutLimitLength(String num) {
-        return num.length() > 10;
+        return num.length() > 9;
     }
-    public boolean isZero(String num) {
+    public static boolean isZero(String num) {
         if (TextUtils.isEmpty(num)) {
             return true;
         }
@@ -154,12 +188,61 @@ public class Calculator {
         }
         return true;
     }
-    public void saveData() {
+    public boolean saveData() {
+        if (mDataNum.size() == 0)
+            return false;
+        SPUtils spUtils = new SPUtils(TimeUtils.date2String(TimeUtils.getNowTimeDate(), "yyyy-MM-dd"));
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i <mDataNum.size(); ++i) {
+            if (i == 0) {
+                buffer.append(mDataNum.get(i));
+            } else {
+                buffer.append(mDataChar.get(i - 1) + mDataNum.get(i));
+            }
+        }
+        String dataList = spUtils.getString("data_list");
+        if (dataList == null) {
+            dataList = "";
+        } else {
+            dataList += "@";
+        }
+        spUtils.putString("data_list", dataList + buffer.toString());
 
+        SPUtils database = new SPUtils("DateList");
+        String dateList = database.getString("date_list");
+        if (dateList == null) {
+            dateList = "";
+        } else {
+            String[] date = dateList.split("@");
+            for (int i = 0; i < date.length; ++i) {
+                if (date[i].equals(TimeUtils.date2String(TimeUtils.getNowTimeDate(), "yyyy-MM-dd"))) {
+                    return true;
+                }
+            }
+            dateList += "@";
+        }
+        database.putString("date_list",  dateList + TimeUtils.date2String(TimeUtils.getNowTimeDate(), "yyyy-MM-dd"));
+        return true;
+    }
+
+    public List<String> getDataChar() {
+        return mDataChar;
+    }
+
+    public List<String> getDataNum() {
+        return mDataNum;
+    }
+
+    public void removeItem(int pos) {
+        mDataNum.remove(pos);
+        if (pos > 0)
+            mDataChar.remove(pos);
     }
 
     public interface OnDataChangedListener {
         void onResultChanged(String res);
         void onTempChanged(String temp);
+        void onCharChanged(String ch);
+        void onListDataChanged(String ch, String num);
     }
 }

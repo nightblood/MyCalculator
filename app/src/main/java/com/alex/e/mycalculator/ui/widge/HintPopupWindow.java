@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.alex.e.mycalculator.R;
 
 import java.util.ArrayList;
 import java.util.List;

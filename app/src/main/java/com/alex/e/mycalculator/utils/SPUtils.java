@@ -21,7 +21,6 @@ public class SPUtils {
     /**
      * SPUtils构造函数
      * <p>在Application中初始化</p>
-     *
      * @param spName  spName
      */
     public SPUtils(String spName) {
@@ -32,7 +31,6 @@ public class SPUtils {
 
     /**
      * SP中写入String类型value
-     *
      * @param key   键
      * @param value 值
      */
@@ -42,7 +40,6 @@ public class SPUtils {
 
     /**
      * SP中读取String
-     *
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值{@code null}
      */
@@ -52,7 +49,6 @@ public class SPUtils {
 
     /**
      * SP中读取String
-     *
      * @param key          键
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}
@@ -63,7 +59,6 @@ public class SPUtils {
 
     /**
      * SP中写入int类型value
-     *
      * @param key   键
      * @param value 值
      */
@@ -73,7 +68,6 @@ public class SPUtils {
 
     /**
      * SP中读取int
-     *
      * @param key 键
      * @return 存在返回对应值，不存在返回默认值-1
      */
@@ -83,7 +77,6 @@ public class SPUtils {
 
     /**
      * SP中读取int
-     *
      * @param key          键
      * @param defaultValue 默认值
      * @return 存在返回对应值，不存在返回默认值{@code defaultValue}

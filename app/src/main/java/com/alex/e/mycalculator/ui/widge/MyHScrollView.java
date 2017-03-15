@@ -1,21 +1,17 @@
 package com.alex.e.mycalculator.ui.widge;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.excel_sorttabledemo.MainActivity;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 
-/*
- * �Զ����?�����ؼ�
- * ������ onScrollChanged���������仯��,����ÿ�εı仯֪ͨ�� �۲�(�˱仯��)�۲���
- * ��ʹ�� AddOnScrollChangedListener �����ı��ؼ��� �������仯
- * */
+import com.alex.e.mycalculator.ui.fragment.DataDetailFragmentDayItems;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class MyHScrollView extends HorizontalScrollView {
 	private ScrollViewSubject mScrollViewSubject = new ScrollViewSubject();
 
@@ -69,9 +65,9 @@ public class MyHScrollView extends HorizontalScrollView {
 			y = (int) ev.getX();
 
 			if (Math.abs(x - y) > 20) {
-				MainActivity.isTouchItem = false;
+				DataDetailFragmentDayItems.isTouchItem = false;
 			} else {
-				MainActivity.isTouchItem = true;
+				DataDetailFragmentDayItems.isTouchItem = true;
 			}
 			break;
 		}
@@ -81,39 +77,27 @@ public class MyHScrollView extends HorizontalScrollView {
 
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-		/*
-		 * ���������ƶ����� �����¼���֪ͨ��۲��ߣ��۲��߻ᴫ�������ġ�?
-		 */
+
 		if (mScrollViewSubject != null /* && (l != oldl || t != oldt) */) {
 			mScrollViewSubject.NotifyOnScrollChanged(l, t, oldl, oldt);
 		}
 		super.onScrollChanged(l, t, oldl, oldt);
 	}
 
-	/*
-	 * ���� ���ؼ� �� �������仯�¼�
-	 */
+
 	public void AddScrollViewObserver(ScrollViewObserver observer) {
 		mScrollViewSubject.AddScrollViewObserver(observer);
 	}
 
-	/*
-	 * ȡ�� ���� ���ؼ� �� �������仯�¼�
-	 */
 	public void RemoveScrollViewObserver(ScrollViewObserver observer) {
 		mScrollViewSubject.RemoveScrollViewObserver(observer);
 	}
 
-	/*
-	 * �۲��� ----�������˹����¼�ʱ
-	 */
+
 	public static interface ScrollViewObserver {
 		public void onScrollChanged(int l, int t, int oldl, int oldt);
 	}
 
-	/*
-	 * ֪ͨ��
-	 */
 	public static class ScrollViewSubject {
 		List<ScrollViewObserver> mList;
 
@@ -122,17 +106,14 @@ public class MyHScrollView extends HorizontalScrollView {
 			mList = new ArrayList<ScrollViewObserver>();
 		}
 
-		// ���ӹ۲���
 		public void AddScrollViewObserver(ScrollViewObserver observer) {
 			mList.add(observer);
 		}
 
-		// �Ƴ�۲���?
 		public void RemoveScrollViewObserver(ScrollViewObserver observer) {
 			mList.remove(observer);
 		}
 
-		// ֪ͨ
 		public void NotifyOnScrollChanged(int l, int t, int oldl, int oldt) {
 			if (mList == null || mList.size() == 0) {
 				return;
