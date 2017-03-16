@@ -71,23 +71,27 @@ public class DataDetailFragmentDayItems extends BaseFragment {
             textView.setBackgroundResource(R.drawable.bg_data_detail);
             mLlTopLine.addView(textView);
 
-            TextView res = new TextView(getContext());
-            res.setText(caculate(strings[i]));
-            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(SizeUtils.dp2px(50), SizeUtils.dp2px(40));
-            params1.gravity = Gravity.CENTER;
-            res.setLayoutParams(params1);
-            res.setTextColor(Color.RED);
-            res.setGravity(Gravity.CENTER);
-            res.setBackgroundResource(R.drawable.bg_data_detail);
-            mLlRes.addView(res);
+//            TextView res = new TextView(getContext());
+            String tempRes = caculate(strings[i]);
+            mResData.add(tempRes);
+//            res.setText(tempRes);
+//            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(SizeUtils.dp2px(50), SizeUtils.dp2px(40));
+//            params1.gravity = Gravity.CENTER;
+//            res.setLayoutParams(params1);
+//            res.setTextColor(Color.RED);
+//            res.setGravity(Gravity.CENTER);
+//            res.setBackgroundResource(R.drawable.bg_data_detail);
+//            mLlRes.addView(res);
         }
 
-        mLvMain.addFooterView(mLlRes);
+//        mLvMain.addFooterView(mLlRes);
         mAdapter = new DataDetailAdapter(getContext(), mLlTopLayout);
-        mAdapter.setData(mData);
+        mAdapter.setData(mData, mResData);
         mLvMain.setAdapter(mAdapter);
 
     }
+
+    private List<String> mResData = new ArrayList<>();
 
     private String caculate(String data) {
         String arg2 = "";

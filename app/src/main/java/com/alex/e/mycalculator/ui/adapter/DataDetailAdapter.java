@@ -1,6 +1,7 @@
 package com.alex.e.mycalculator.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,16 @@ public class DataDetailAdapter extends BaseAdapter {
     public List<List<String>> mData;
     private Context context;
     private View top_layout;
+    private List<String> mRes;
 
     public DataDetailAdapter(Context context, View top_layout) {
         this.context = context;
         this.top_layout = top_layout;
     }
 
-    public synchronized void setData(List<List<String>> data) {
+    public synchronized void setData(List<List<String>> data, List<String> res) {
         this.mData = data;
+        this.mRes = res;
         this.notifyDataSetChanged();
     }
 
@@ -40,7 +43,7 @@ public class DataDetailAdapter extends BaseAdapter {
             if (num < mData.get(i).size())
                 num = mData.get(i).size();
         }
-        return num;
+        return num + 1;
     }
 
     @Override
@@ -67,7 +70,16 @@ public class DataDetailAdapter extends BaseAdapter {
         for (int i = 0; i < mData.size(); ++i) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_excel_atom, null);
             TextView text = (TextView) view.findViewById(R.id.tv_item);
-            text.setText(position < mData.get(i).size() ? mData.get(i).get(position) : "");
+            if (position < mData.get(i).size()) {
+                text.setText(mData.get(i).get(position));
+                text.setTextColor(Color.parseColor("#8E8E8E"));
+            } else if (position == mData.get(i).size()) {
+                text.setText(mRes.get(i));
+                text.setTextColor(Color.RED);
+            } else {
+                text.setText("");
+            }
+
             llMain.addView(view);
 
         }

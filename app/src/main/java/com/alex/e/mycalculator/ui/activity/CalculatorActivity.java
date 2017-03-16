@@ -18,8 +18,6 @@ import com.alex.e.mycalculator.R;
 import com.alex.e.mycalculator.base.BaseActivity;
 import com.alex.e.mycalculator.utils.Calculator;
 import com.alex.e.mycalculator.utils.ScreenUtils;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,10 +97,10 @@ public class CalculatorActivity extends BaseActivity implements Calculator.OnDat
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-//                                onItemRemoved(pos);
-                                YoYo.with(Techniques.FadeOut)
+                                onItemRemoved(pos);
+                                /*YoYo.with(Techniques.FadeOut)
                                         .duration(700)
-                                        .playOn(view);
+                                        .playOn(view);*/
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
